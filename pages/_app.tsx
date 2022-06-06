@@ -3,10 +3,14 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 import "../styles/globals.css";
 
+import { IndexProvider } from "../src/pages/index/home/.context";
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
-      <Component {...pageProps} />
+      <IndexProvider>
+        <Component {...pageProps} />
+      </IndexProvider>
     </ChakraProvider>
   );
 }
