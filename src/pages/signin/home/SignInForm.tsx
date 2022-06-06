@@ -12,15 +12,16 @@ import {
 import { useForm } from "react-hook-form";
 
 export type SignInFormTypes = {
-  email: string;
+  login: string;
   password: string;
 };
 
 interface SignInFormProps {
+  isLoading: boolean;
   onSubmit: (data: SignInFormTypes) => void;
 }
 
-export const SignInForm: FC<SignInFormProps> = ({ onSubmit }) => {
+export const SignInForm: FC<SignInFormProps> = ({ isLoading, onSubmit }) => {
   const { register, handleSubmit } = useForm<SignInFormTypes>();
 
   return (
@@ -31,7 +32,7 @@ export const SignInForm: FC<SignInFormProps> = ({ onSubmit }) => {
           <Input
             id="email"
             type="email"
-            {...register("email", { required: true })}
+            {...register("login", { required: true })}
           />
           <FormHelperText>Enter your Email</FormHelperText>
         </FormControl>
@@ -44,7 +45,9 @@ export const SignInForm: FC<SignInFormProps> = ({ onSubmit }) => {
           />
           <FormHelperText>Enter your Password</FormHelperText>
         </FormControl>
-        <Button type="submit">Sign In</Button>
+        <Button isLoading={isLoading} type="submit">
+          Sign In
+        </Button>
       </Stack>
     </chakra.form>
   );
