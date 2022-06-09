@@ -18,6 +18,7 @@ import {
 import { useIndexContext } from "./.context";
 import { useForm } from "react-hook-form";
 import { useDebouncedCallback } from "use-debounce";
+import { FinishModal } from "./FinishModal";
 
 export const FormsForSignatories = () => {
   const { register, setValue, reset } = useForm();
@@ -30,10 +31,10 @@ export const FormsForSignatories = () => {
   }, 500);
 
   const [fields] = useState([
-    { id: 1, name: "full_name", placeholder: "sdadsdas", label: "Nombre Completo" },
-    { id: 2, name: "email", placeholder: "sdadsdas", label: "Correo electrónico" },
-    { id: 3, name: "RUT", placeholder: "sdadsdas", label: "RUT (Sin puntos y con guión)" },
-    { id: 4, name: "phone", placeholder: "sdadsdas", label: "Número de celular" },
+    { id: 1, name: "full_name", placeholder: "...", label: "Nombre Completo" },
+    { id: 2, name: "email", placeholder: "...", label: "Correo electrónico" },
+    { id: 3, name: "RUT", placeholder: "...", label: "RUT (Sin puntos y con guión)" },
+    { id: 4, name: "phone", placeholder: "...", label: "Número de celular" },
   ]);
 
   return (
@@ -106,9 +107,7 @@ export const FormsForSignatories = () => {
           <Text mr="10" fontSize="sm">
             Seleeciona almenos 1 de los firmates como responsable del pago. Puedes dividir el pago hasta 2 firmantes.
           </Text>
-          <Button rounded="sm" minW="max-content" colorScheme="blue">
-            Seleccionar quienes serán responsables del pago
-          </Button>
+          <FinishModal />
         </HStack>
       </Stack>
     </Box>
