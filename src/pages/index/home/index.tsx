@@ -11,6 +11,8 @@ export const IndexPage = () => {
   useEffect(() => {
     setIsSSR(false);
     getContactOwner();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
