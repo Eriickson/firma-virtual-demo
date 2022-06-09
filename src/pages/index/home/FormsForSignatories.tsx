@@ -1,8 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import {
   Box,
-  Button,
   Checkbox,
   Divider,
   FormControl,
@@ -25,9 +24,14 @@ export const FormsForSignatories = () => {
 
   const { contractOwner, contractDetail, getContract } = useIndexContext();
   const [isFocusInput, setIsFocusInput] = useState<{ name: string; value: boolean }>({ name: "", value: false });
+  const [firmantesFindeds, setFirmantesFindeds] = useState<typeof contractDetail["firmantes"]>([]);
 
-  const debounced = useDebouncedCallback(({ name, stringValue, value }) => {
-    console.log({ name, stringValue, value });
+  const debounced = useDebouncedCallback(({ name, stringValue }) => {
+    const result = contractDetail?.firmantes.filter((firmante) =>
+      ((firmante as any)[name] as string).toLowerCase().includes(stringValue.toLowerCase())
+    );
+
+    setFirmantesFindeds(result);
   }, 500);
 
   const [fields] = useState([
@@ -36,6 +40,10 @@ export const FormsForSignatories = () => {
     { id: 3, name: "RUT", placeholder: "...", label: "RUT (Sin puntos y con guión)" },
     { id: 4, name: "phone", placeholder: "...", label: "Número de celular" },
   ]);
+
+  useEffect(() => {
+    setFirmantesFindeds(contractDetail?.firmantes);
+  }, [contractDetail]);
 
   return (
     <Box mx="auto" maxW="6xl" px="20">
@@ -78,7 +86,7 @@ export const FormsForSignatories = () => {
                 <Box pos="absolute" top="20" w="full" zIndex="1">
                   <Box w="full" bgColor="white" borderWidth="1px" rounded="sm" shadow="sm">
                     <List>
-                      {contractDetail?.firmantes.map((firmante, i) => (
+                      {firmantesFindeds.map((firmante, i) => (
                         <Fragment key={i}>
                           <ListItem
                             cursor="pointer"
